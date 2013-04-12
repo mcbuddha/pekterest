@@ -8,6 +8,7 @@ main_plate = '''
 <html>
   <head>
     <title>Pekterest</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/js"></script>
   </head>
   <body id="content" onload="view_init()"></body>
@@ -25,7 +26,6 @@ app.router.get '/', ->
 app.router.get '/js', ->
   @res.writeHead 200, 'Content-Type': 'text/javascript'
   @res.write fs.readFileSync 'node_modules/plates/lib/plates.js'
-  @res.write fs.readFileSync 'node_modules/zepto/zepto.min.js'
   @res.write fs.readFileSync 'view.js'
   @res.end ''
 

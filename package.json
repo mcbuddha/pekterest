@@ -6,9 +6,9 @@
     "union": "0.3.5",
     "flatiron": "0.3.5",
     "plates": "~0.4.8",
-    "zepto": "0.0.3",
     "request": "~2.16.6",
-    "coffee-script": "~1.6.2"
+    "coffee-script": "~1.6.2",
+    "jquery": "~1.8.3"
   },
   "devDependencies": {
     "api-easy": "0.3.2",
