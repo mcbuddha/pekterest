@@ -1,23 +1,25 @@
 box_plate = '''
-<div class="box" style="float: left; margin: 10px">
+<div class="box">
   <span class="title">Empty title</span>
   <br/>
-  <img class="thing" width="100" height="100" src="http://placehold.it/100x100"/>
+  <img class="thumbnail" width="175" src="" alt=""/>
 </div>
 '''
 
 you_at = 0
 
-show_some_more = (thismany) ->
-  $.getJSON "/take_from/#{you_at}/#{thismany}", (some_boxes) ->
-    you_at += some_boxes.length
-    box_map = Plates.Map()
-    (box_map.class 'title').to 'title'
-    (((box_map.where 'class').is 'thing').use 'thing').as 'src'
-    ($ '#content').append Plates.bind box_plate, some_boxes, box_map
+moar = ->
+  c = ($ '#content')
+  console.log c.scrollTop() + c.height() , c[0].scrollHeight - 1000
+  if c.scrollTop() + c.height() > c[0].scrollHeight - 1000
+    $.getJSON "/moar", (items) ->
+      you_at += items.length
+      box_map = Plates.Map()
+      (box_map.class 'title').to 'title'
+      (((box_map.where 'class').is 'thumbnail').use 'img').as 'src'
+      (((box_map.where 'class').is 'thumbnail').use 'title').as 'alt'
+      ($ '#content').append Plates.bind box_plate, items, box_map
 
 view_init = ->
-  ($ window).scroll ->
-    if screenTop + scrollY + ($ '#content').height() > ($ '#content')[0].scrollHeight
-      show_some_more 25
-  show_some_more 50
+  ($ window).on 'scroll resize', moar
+  moar()

@@ -10,12 +10,13 @@ main_plate = '''
     <title>Pekterest</title>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/js"></script>
+    <style>.box{float:left; margin:10px;}</style>
   </head>
   <body id="content" onload="view_init()"></body>
 </html>
 '''
 
-crawler = require './crawler.js'
+crawler = require './crawl_9gag'
 
 app.use flatiron.plugins.http
 
@@ -29,14 +30,8 @@ app.router.get '/js', ->
   @res.write fs.readFileSync 'view.js'
   @res.end ''
 
-app.router.get '/take/:howmany', (thismany) ->
-  @res.writeHead 200, 'Content-Type': 'text/javascript'
-  @res.end JSON.stringify crawler.funny_things[0...(parseInt thismany)]
-
-app.router.get '/take_from/:where/:howmany', (here, thismany) ->
-  @res.writeHead 200, 'Content-Type': 'text/javascript'
-  from = parseInt here
-  to = from + parseInt thismany
-  @res.end JSON.stringify crawler.funny_things[from...to]
+app.router.get '/moar', ->
+  crawler.crawl (data) =>
+    @res.end JSON.stringify data
 
 app.start 8080
