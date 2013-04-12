@@ -6,7 +6,6 @@ items = []
 
 exports.crawl = (cb) ->
   if not current_addr then return cb []
-  console.log current_addr
   req current_addr, (err, resp, body) ->
     $ = che.load body
     items = for it in $ '.side-dock li > a'
