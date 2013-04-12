@@ -10,7 +10,7 @@ main_plate = '''
     <title>Pekterest</title>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/js"></script>
-    <style>.box{float:left; margin:10px;}</style>
+    <style>.col{float:left; margin:10px; width: 175px}</style>
   </head>
   <body id="content" onload="view_init()"></body>
 </html>
