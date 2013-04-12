@@ -1,7 +1,7 @@
 fs = require 'fs'
 flatiron = require 'flatiron'
 plates = require 'plates'
-crawler = require './crawl_9gag'
+crawler = require './crawl'
 
 app = flatiron.app
 app.use flatiron.plugins.http
@@ -29,12 +29,11 @@ app.router.get '/', ->
 
 app.router.get '/js', ->
   @res.writeHead 200, 'Content-Type': 'text/javascript'
-  @res.write fs.readFileSync 'node_modules/plates/lib/plates.js'
-  @res.write fs.readFileSync 'view.js'
+  for f in ['node_modules/plates/lib/plates.js', 'view.js']
+    @res.write fs.readFileSync f
   @res.end ''
 
 app.router.get '/moar', ->
-  crawler.crawl (data) =>
-    @res.end JSON.stringify data
+  crawler.crawl (data) => @res.end JSON.stringify data
 
 app.start 8080
