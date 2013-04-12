@@ -1,24 +1,27 @@
 fs = require 'fs'
 flatiron = require 'flatiron'
-app = flatiron.app
-
 plates = require 'plates'
-
-main_plate = '''
-<html>
-  <head>
-    <title>Pekterest</title>
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="/js"></script>
-    <style>.col{float:left; margin:10px; width: 175px}</style>
-  </head>
-  <body id="content" onload="view_init()"></body>
-</html>
-'''
-
 crawler = require './crawl_9gag'
 
+app = flatiron.app
 app.use flatiron.plugins.http
+
+main_plate = '''
+<html style="background:#eee;">
+<head>
+  <title>Pekterest</title>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="/js"></script>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+  <style>
+    #ct{margin-left:auto; margin-right: auto; font: 12px sans; width: 1000px;}
+    .col{float:left; margin:4px; width: 182px}
+    .box{margin-bottom:8px; padding:4px; border-radius:4px; background: #fff;}
+  </style>
+</head>
+<body onload="view_init()"><div id="ct"><div style="clear:both"></div></div></body>
+</html>
+'''
 
 app.router.get '/', ->
   @res.writeHead 200, 'Content-Type': 'text/html'
